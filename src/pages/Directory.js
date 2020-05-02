@@ -34,6 +34,14 @@ class Directory extends Component {
         this.setState({results: filteredList});
     }
 
+    sortByDOB = event => {
+        event.preventDefault();
+        var sortedList = this.state.employeeList.sort((a, b) => {
+            return (new Date(a.dob.date) > new Date(b.dob.date) ? 1 : -1)
+        })
+        this.setState({results: sortedList})
+    }
+
     render() {
         return (
             <div>
@@ -41,6 +49,7 @@ class Directory extends Component {
                     handleFormSubmit={this.handleFormSubmit}
                     handleInputChange={this.handleInputChange}
                 />
+                <button onClick={this.sortByDOB}>Sort by DOB</button>
                 <SearchResults results={this.state.results} />
             </div>
         )
