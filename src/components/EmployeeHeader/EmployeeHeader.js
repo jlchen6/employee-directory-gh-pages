@@ -3,7 +3,7 @@ import Col from "../Col";
 import Row from "../Row";
 import "./style.css";
 
-function EmployeeHeader() {
+function EmployeeHeader(props) {
     return (
         <Row>
             <Col size="md-1">
