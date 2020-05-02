@@ -4,18 +4,25 @@ import SearchForm from "../components/SearchForm";
 import SearchResults from "../components/SearchResults";
 
 class Directory extends Component {
+    // state for this component. 
     state = {
+        // search holds the string that users type into the search form
         search: "",
+        // employeeList holds the full list of employees returned from the API call
         employeeList: [],
-        results: [],
-        error: ""
+        // results holds the filtered/sorted list of employees
+        results: []
     };
 
     // When component mounts, get list of random users to display
     componentDidMount() {
+        // call the api to populate the list of employees
         API.getRandomUsers()
-            .then(res => this.setState({ results: res.data.results,
-            employeeList: res.data.results }))
+        // Put the results from the API call into the employeeList, and display them in the Search Results section by populating the results array.
+            .then(res => this.setState({
+                results: res.data.results,
+                employeeList: res.data.results
+            }))
             .catch(err => console.log(err))
     };
 
@@ -24,22 +31,30 @@ class Directory extends Component {
         this.setState({ search: event.target.value });
     };
 
-    // When the user hits the submit button, search through the userList for the searched employees and display only the cards for the employees that match that search.
+    // When the user hits the submit button, search through the userList for names that match the searched string
     handleFormSubmit = event => {
         event.preventDefault();
+        // Filter the employeeList for employees whose name matches the searched string
         var filteredList = this.state.employeeList.filter(employee => {
+            // create a string to hold the employee's full name, set to lowercase to avoid case matching
             let employeeName = employee.name.first.toLowerCase() + " " + employee.name.last.toLowerCase();
+            // Return the boolean result of finding if the searched string can be found within this employee's full name
             return employeeName.indexOf(this.state.search.toLowerCase()) !== -1
         })
-        this.setState({results: filteredList});
+        // Display the filtered list in the search results section
+        this.setState({ results: filteredList });
     }
 
+    // sort the list of employees by date of birth
     sortByDOB = event => {
         event.preventDefault();
+        // Create a variable to hold the sorted list
         var sortedList = this.state.employeeList.sort((a, b) => {
+            // Compare each employee's dates of birth.
             return (new Date(a.dob.date) > new Date(b.dob.date) ? 1 : -1)
         })
-        this.setState({results: sortedList})
+        // Display the sorted list in the search results section
+        this.setState({ results: sortedList })
     }
 
     render() {
@@ -49,7 +64,7 @@ class Directory extends Component {
                     handleFormSubmit={this.handleFormSubmit}
                     handleInputChange={this.handleInputChange}
                 />
-                <button onClick={this.sortByDOB}>Sort by DOB</button>
+                <button onClick={this.sortByDOB}>Sort All by DOB</button>
                 <SearchResults results={this.state.results} />
             </div>
         )
