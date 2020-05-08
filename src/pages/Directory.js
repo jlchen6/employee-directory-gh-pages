@@ -19,7 +19,7 @@ class Directory extends Component {
     componentDidMount() {
         // call the api to populate the list of employees
         API.getRandomUsers()
-        // Put the results from the API call into the employeeList, and display them in the Search Results section by populating the results array.
+            // Put the results from the API call into the employeeList, and display them in the Search Results section by populating the results array.
             .then(res => this.setState({
                 results: res.data.results,
                 employeeList: res.data.results
@@ -30,6 +30,15 @@ class Directory extends Component {
     // As the user types into the search bar, update the state to hold the search value 
     handleInputChange = event => {
         this.setState({ search: event.target.value });
+        // Filter the employeeList for employees whose name matches the searched string
+        var filteredList = this.state.employeeList.filter(employee => {
+            // create a string to hold the employee's full name, set to lowercase to avoid case matching
+            let employeeName = employee.name.first.toLowerCase() + " " + employee.name.last.toLowerCase();
+            // Return the boolean result of finding if the searched string can be found within this employee's full name
+            return employeeName.indexOf(this.state.search.toLowerCase()) !== -1
+        })
+        // Display the filtered list in the search results section
+        this.setState({ results: filteredList });
     };
 
     // When the user hits the submit button, search through the userList for names that match the searched string
