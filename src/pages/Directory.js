@@ -56,7 +56,7 @@ class Directory extends Component {
     }
 
     // sort the list of employees by date of birth
-    sortByDOB = event => {
+    sortByDOB = event => {   
         event.preventDefault();
         // Create a variable to hold the sorted list
         var sortedList = this.state.employeeList.sort((a, b) => {
