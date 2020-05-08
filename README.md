@@ -4,7 +4,7 @@
 
 ## Description
 
-A react based page to view a randomly generated list of employees. 
+A react based application, hosted on github pages. It can be used to view a randomly generated list of employees. Employees can be searched by name, or sorted based on their dates of birth.
 
 ## Table of Contents 
 
