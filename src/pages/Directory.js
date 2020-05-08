@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import API from "../util/API";
 import SearchForm from "../components/SearchForm";
 import SearchResults from "../components/SearchResults";
+import Button from "../components/Button"
 
 class Directory extends Component {
     // state for this component. 
@@ -64,7 +65,7 @@ class Directory extends Component {
                     handleFormSubmit={this.handleFormSubmit}
                     handleInputChange={this.handleInputChange}
                 />
-                <button onClick={this.sortByDOB}>Sort All by DOB</button>
+                <Button onClick={this.sortByDOB}>Sort All by DOB</Button>
                 <SearchResults results={this.state.results} />
             </div>
         )
